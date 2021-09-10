@@ -1,0 +1,9 @@
+--mode=train
+--train_file_pattern=/home/danieltc/AITuring/global_repository/tmp/temp_dir_tfrecords/train_tfrecord*.tfrecord
+--model_name=efficientdet-d0
+--model_dir=/home/danieltc/AITuring/global_repository/tmp/result
+--backbone_ckpt=/home/danieltc/AITuring/global_repository/efficientdet-zoo-models/efficientdet-d0
+--train_batch_size=1
+--num_epochs=2
+--hparams=/home/danieltc/AITuring/global_repository/tmp/temp_dir_tfrecords/train_tfrecord_config.yaml
+--num_examples_per_epoch=4455

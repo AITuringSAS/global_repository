@@ -1,0 +1,5 @@
+--data_dir=/home/danieltc/AITuring/global_repository/tmp/temp_dir_dataset
+--output_path=/home/danieltc/AITuring/global_repository/tmp/temp_dir_tfrecords/train_tfrecord
+--num_shards=10
+--use_data_augmentation=False
+--perc_split_training=0.9
