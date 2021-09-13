@@ -2,21 +2,39 @@
 Repositorio global del equipo AITeam para el trabajo y desarrollo de una CNN basada en el modelo del EfficientDet de Google: [efficientdet-google](https://github.com/google/automl)
 
 ## Descripción
+Este proyecto utiliza Tensorflow 2.5 y Python 3.8
+
 
 ## Requisitos
 
 ### Windows
+- Microsoft C++ Build Tools: https://visualstudio.microsoft.com/visual-cpp-build-tools
+- C:\Users\USER-NAME\miniconda3\Scripts
+- C:\Users\USER-NAME\miniconda3\Library\bin
+
 
 ### Linux
 
 ### MacOX
 
 ## Instalación
-`pip install -r requirements.txt`
+```
+conda config --set auto_activate_base false
+conda config --set env_prompt '({name})
+```
 
 ### Instalación con conda
+```
+conda create --prefix=conda-env python=3.8 tensorflow=2.5 pyyaml pycocotools=2.0 lxml -c anaconda -c esri
+conda activate ./conda-env/
+```
 
-### Instalación Local
+### Instalación con PIP
+```
+conda create --prefix=conda-env python=3.8
+pip install -r requirements.txt
+```
+
 
 ## Pipeline
 ```
@@ -74,5 +92,6 @@ python3 freezeModelMod/freeze_aituring.py --path_ckpt /workspace/saved_checkpoin
 ```
 
 ## Inference
+coming soon...
 
 
