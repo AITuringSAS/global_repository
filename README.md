@@ -31,6 +31,8 @@ conda create --prefix=conda-env python=3.8 lxml=4.6 pycocotools=2.0.2 opencv=4.5
 conda activate ./conda-env/
 ```
 
+- Windows
+
 ### Instalación con PIP
 ```
 conda create --prefix=conda-env python=3.8
