@@ -4,6 +4,10 @@ Repositorio global del equipo AITeam para el trabajo y desarrollo de una CNN bas
 ## Descripción
 Este proyecto utiliza Tensorflow 2.5 y Python 3.8
 
+## Getting started
+```
+git clone --recursive https://git-codecommit.us-east-1.amazonaws.com/v1/repos/aituring_pipeline_efficientdet
+```
 
 ## Requisitos
 
