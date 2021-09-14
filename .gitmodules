@@ -4,3 +4,6 @@
 [submodule "google-automl-efficientdet"]
 	path = google-automl-efficientdet
 	url = https://git-codecommit.us-east-1.amazonaws.com/v1/repos/google-automl-efficientdet
+[submodule "efficientdet_aituring/automl"]
+	path = efficientdet_aituring/automl
+	url = https://git-codecommit.us-east-1.amazonaws.com/v1/repos/automl
