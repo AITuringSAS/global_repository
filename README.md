@@ -13,8 +13,8 @@ git clone --recursive https://git-codecommit.us-east-1.amazonaws.com/v1/repos/ai
 
 ### Windows
 - Microsoft C++ Build Tools: https://visualstudio.microsoft.com/visual-cpp-build-tools
-- C:\Users\USER-NAME\miniconda3\Scripts
-- C:\Users\USER-NAME\miniconda3\Library\bin
+- `C:\Users\USER-NAME\miniconda3\Scripts`
+- `C:\Users\USER-NAME\miniconda3\Library\bin`
 
 
 ### Linux
@@ -31,8 +31,15 @@ conda config --set env_prompt '({name})
 - Linux
 
 ```
-conda create --prefix=conda-env python=3.8 lxml=4.6 pycocotools=2.0.2 opencv=4.5 pyyaml=5.4 tensorflow=2.5 tensorflow-model-optimization=0.6 configparser=5.0 -c hcc
-conda activate ./conda-env/
+conda create --prefix=conda-env python=3.8.10
+conda activate conda-env/
+conda install tensorflow=2.5
+conda install tensorflow-model-optimization=0.6 -c hcc
+conda install lxml=4.6
+conda install pycocotools=2.0.2
+conda install opencv=4.5 -c conda-forge
+conda install pyyaml=5.4 -c conda-forge
+conda install configparser=5.0 -c conda-forge
 ```
 
 - Windows
