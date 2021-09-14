@@ -75,7 +75,13 @@ class PipelineTools(object):
         Returns:
             None
     """
-    my_params = argparse.ArgumentParser(description='List the content of a folder')
+    my_params = argparse.ArgumentParser(description="""Command line options.""",
+                                        add_help=True)
+
+    my_params.add_argument('-v', '--version', action='version', version='%(prog)s 1.0')
+
+    group1 = my_params.add_argument_group("tfrecord parameters")
+    group2 = my_params.add_argument_group("training parameters")
 
     ################################################################################
     # CONFIG FILE FLAG
@@ -85,38 +91,38 @@ class PipelineTools(object):
     ################################################################################
     # TFRECORD FLAGS
     ################################################################################
-    my_params.add_argument('--URL_DATASET', metavar='dataset', type=str, action=env_default('URL_DATASET'),
-                           help='path/to/dataset', required=False)
-    my_params.add_argument('--output_path', metavar='tfrecord-name', type=str,
-                           default=os.path.join(self.paths['TFRECORDS_DIR'], 'train_tfrecord'), help='Filename to save output TFRecord', required=False)
-    my_params.add_argument('--num_shards', metavar='shards', type=int, default=10,
-                           help='Number of shards for output file', required=False)
-    my_params.add_argument('--use_data_augmentation', metavar='True/False', type=bool, default=False,
-                           help='Define the use of data augmentation', required=False)
-    my_params.add_argument('--perc_split_training', metavar='0.0/1.0', type=float, default=0.9,
-                           help='Define the percentage training set', required=False)
+    group1.add_argument('--URL_DATASET', metavar='dataset', type=str, action=env_default('URL_DATASET'),
+                        help='URL from S3', required=False)
+    group1.add_argument('--output_path', metavar='tfrecord-name', type=str,
+                        default=os.path.join(self.paths['TFRECORDS_DIR'], 'train_tfrecord'), help='Filename to save output TFRecord', required=False)
+    group1.add_argument('--num_shards', metavar='shards', type=int, default=10,
+                        help='Number of shards for output file', required=False)
+    group1.add_argument('--use_data_augmentation', metavar='True/False', type=bool, default=False,
+                        help='Define the use of data augmentation', required=False)
+    group1.add_argument('--perc_split_training', metavar='0.0/1.0', type=float, default=0.9,
+                        help='Define the percentage training set', required=False)
 
     ################################################################################
     # TRAINING FLAGS
     ################################################################################
-    my_params.add_argument('--mode', metavar='train/eval', type=str, default='train',
-                           help='Mode to run: train or eval (default: train)', required=False)
-    my_params.add_argument('--train_file_pattern', metavar='path/to/tfrecord/folder', type=str, default=os.path.join(self.paths['TFRECORDS_DIR'], 'train_tfrecord*.tfrecord'),
-                           help='Glob for training data files', required=False)
-    my_params.add_argument('--BACKBONE_REF', metavar='efficientdet-d#', type=str, action=env_default('BACKBONE_REF'),
-                           help='Backbone reference', required=False)
-    my_params.add_argument('--MODEL_CKPTS', metavar='path/to/save/model', type=str, action=env_default('MODEL_CKPTS'),
-                           help='Location to save trained model', required=False)
-    my_params.add_argument('--backbone_ckpt', metavar='path/to/checkpoint (default: efficientdet-d1)', type=str, default=self.paths['BACKBONE_CKPT']['efficientdet-d1'],
-                           help='Location of the ResNet50 checkpoint to use for model', required=False)
-    my_params.add_argument('--BATCH_SIZE', metavar='size', type=np.int64, action=env_default('BATCH_SIZE'),
-                           help='Define the global training batch size', required=False)
-    my_params.add_argument('--NUM_EPOCHS', metavar='epochs', type=float, action=env_default('NUM_EPOCHS'),
-                           help='Define the Number of epochs for training', required=False)
-    my_params.add_argument('--hparams', metavar='path to config.yaml (tfrecord folder location usually)', type=str, default=os.path.join(self.paths['TFRECORDS_DIR'], 'train_tfrecord_config.yaml'),
-                           help='Comma separated k=v pairs of hyperparameters or a module. containing attributes to use as hyperparameters', required=False)
-    my_params.add_argument('--num_examples_per_epoch', metavar='size', type=float, default=4455,
-                           help='Define the Number of examples in one epoch', required=False)
+    group2.add_argument('--mode', metavar='train/eval', type=str, default='train',
+                        help='Mode to run: train or eval (default: train)', required=False)
+    group2.add_argument('--train_file_pattern', metavar='path/to/tfrecord/folder', type=str, default=os.path.join(self.paths['TFRECORDS_DIR'], 'train_tfrecord*.tfrecord'),
+                        help='Glob for training data files', required=False)
+    group2.add_argument('--BACKBONE_REF', metavar='efficientdet-d#', type=str, action=env_default('BACKBONE_REF'),
+                        help='Backbone reference', required=False)
+    group2.add_argument('--MODEL_CKPTS', metavar='path/to/save/model', type=str, action=env_default('MODEL_CKPTS'),
+                        help='Location to save trained model', required=False)
+    group2.add_argument('--backbone_ckpt', metavar='path/to/checkpoint (default: efficientdet-d1)', type=str, default=self.paths['BACKBONE_CKPT']['efficientdet-d1'],
+                        help='Location of the ResNet50 checkpoint to use for model', required=False)
+    group2.add_argument('--BATCH_SIZE', metavar='size', type=np.int64, action=env_default('BATCH_SIZE'),
+                        help='Define the global training batch size', required=False)
+    group2.add_argument('--NUM_EPOCHS', metavar='epochs', type=float, action=env_default('NUM_EPOCHS'),
+                        help='Define the Number of epochs for training', required=False)
+    group2.add_argument('--hparams', metavar='path to config.yaml (tfrecord folder location usually)', type=str, default=os.path.join(self.paths['TFRECORDS_DIR'], 'train_tfrecord_config.yaml'),
+                        help='Comma separated k=v pairs of hyperparameters or a module. containing attributes to use as hyperparameters', required=False)
+    group2.add_argument('--num_examples_per_epoch', metavar='size', type=float, default=4455,
+                        help='Define the Number of examples in one epoch', required=False)
 
     ################################################################################
     # FROZEN MODEL FLAGS
@@ -135,16 +141,16 @@ class PipelineTools(object):
             None
     """
     # Download backbone checkpoints
-    subprocess.call(['wget', self.paths['BACKBONE_CKPT_URL'][backbone_name]['URL'],
-                     '-O', os.path.join(self.paths['BACKBONE_CKPT']['DIR'], self.paths['BACKBONE_CKPT_URL'][backbone_name]['TAR'])])
+    os.system(' '.join(['wget', self.paths['BACKBONE_CKPT_URL'][backbone_name]['URL'],
+                        '-O', os.path.join(self.paths['BACKBONE_CKPT']['DIR'], self.paths['BACKBONE_CKPT_URL'][backbone_name]['TAR'])]))
 
     # Uncompress backbone .tar.gz files
-    subprocess.call(['tar', '-xzvf', os.path.join(self.paths['BACKBONE_CKPT']['DIR'],
-                                                  self.paths['BACKBONE_CKPT_URL'][backbone_name]['TAR']), '-C', self.paths['BACKBONE_CKPT']['DIR']])
+    os.system(' '.join(['tar', '-xzvf', os.path.join(self.paths['BACKBONE_CKPT']['DIR'],
+                                                     self.paths['BACKBONE_CKPT_URL'][backbone_name]['TAR']), '-C', self.paths['BACKBONE_CKPT']['DIR']]))
 
     # Delete .tar.gz backbone file
-    subprocess.call(['rm', os.path.join(self.paths['BACKBONE_CKPT']['DIR'],
-                                        self.paths['BACKBONE_CKPT_URL'][backbone_name]['TAR'])])
+    os.system(' '.join(['rm', os.path.join(self.paths['BACKBONE_CKPT']['DIR'],
+                                           self.paths['BACKBONE_CKPT_URL'][backbone_name]['TAR'])]))
 
 
 # Courtesy of http://stackoverflow.com/a/10551190 with env-var retrieval fixed
