@@ -5,6 +5,7 @@ import sys
 import absl
 import subprocess
 import configparser
+import numpy as np
 
 # Append submodule path to python search path
 sys.path.append(os.path.join(os.getcwd(), 'automl', 'efficientdet'))
@@ -84,6 +85,10 @@ class Inteface(object):
         self.pip_tools = params_definitions.PipelineTools()
         self.paths = self.pip_tools.paths
         self.args = self.pip_tools.define_parameters()
+        if len(sys.argv) < 2:
+            self.args.print_usage()
+            sys.exit(1)
+
         self.args = self.args.parse_args()
 
         if self.args.configfile:
@@ -93,6 +98,7 @@ class Inteface(object):
             defaults = config['Defaults']
 
             args = vars(self.args)
+
             result = dict(defaults)
             result.update({k: v for k, v in args.items() if v is not None})  # Update if v is not None
             self.args = result.copy()
@@ -110,13 +116,14 @@ class Inteface(object):
             os.mkdir(self.paths['BACKBONE_CKPT']['DIR'])
         except OSError:
             pass
+        print("filename: ", self.paths['DATASET_FILE'])
 
         # Download dataset from S3 (dataset must be public)
-        subprocess.call(['wget', self.args['URL_DATASET'], '-O', self.paths['DATASET_FILE']])
+        os.system(' '.join(['wget', self.args['URL_DATASET'], '-O', self.paths['DATASET_FILE']]))
         # Unzip dataset
-        subprocess.call(['unzip', '-q', self.paths['DATASET_FILE'], '-o', self.paths['DATASET_DIR']])
+        os.system(' '.join(['unzip', '-o', self.paths['DATASET_FILE'], '-d', self.paths['DATASET_DIR']]))
         # Delete .zip dataset
-        subprocess.call(['rm', self.paths['DATASET_FILE']])
+        os.system(' '.join(['rm', self.paths['DATASET_FILE']]))
         # Download backbone checkpoints
         self.pip_tools.download_and_uncompress_backbone(self.args['BACKBONE_REF'])
         print()
@@ -137,9 +144,9 @@ class Inteface(object):
 
         create_tfrecords.flags.FLAGS.data_dir = self.paths['DATASET_DIR']
         create_tfrecords.flags.FLAGS.output_path = self.args['output_path']
-        create_tfrecords.flags.FLAGS.num_shards = self.args['num_shards']
-        create_tfrecords.flags.FLAGS.use_data_augmentation = self.args['use_data_augmentation']
-        create_tfrecords.flags.FLAGS.perc_split_training = self.args['perc_split_training']
+        create_tfrecords.flags.FLAGS.num_shards = int(self.args['num_shards'])
+        create_tfrecords.flags.FLAGS.use_data_augmentation = bool(self.args['use_data_augmentation'])
+        create_tfrecords.flags.FLAGS.perc_split_training = float(self.args['perc_split_training'])
 
         create_tfrecords.main('')
 
@@ -166,10 +173,10 @@ class Inteface(object):
         efficientdet_train_tf1.flags.FLAGS.model_dir = os.path.join(
             self.paths['MODEL_OUTPUT'], self.args['MODEL_CKPTS'])
         efficientdet_train_tf1.flags.FLAGS.backbone_ckpt = self.paths['BACKBONE_CKPT'][self.args['BACKBONE_REF']]
-        efficientdet_train_tf1.flags.FLAGS.train_batch_size = self.args['BATCH_SIZE']
-        efficientdet_train_tf1.flags.FLAGS.num_epochs = self.args['NUM_EPOCHS']
+        efficientdet_train_tf1.flags.FLAGS.train_batch_size = np.int64(self.args['BATCH_SIZE'])
+        efficientdet_train_tf1.flags.FLAGS.num_epochs = int(self.args['NUM_EPOCHS'])
         efficientdet_train_tf1.flags.FLAGS.hparams = self.args['hparams']
-        efficientdet_train_tf1.flags.FLAGS.num_examples_per_epoch = self.args['num_examples_per_epoch']
+        efficientdet_train_tf1.flags.FLAGS.num_examples_per_epoch = int(self.args['num_examples_per_epoch'])
 
         efficientdet_train_tf1.main('')
 
