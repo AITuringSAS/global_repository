@@ -24,8 +24,10 @@ conda config --set env_prompt '({name})
 ```
 
 ### Instalación con conda
+- Linux
+
 ```
-conda create --prefix=conda-env python=3.8 tensorflow=2.5 pyyaml pycocotools=2.0 lxml -c anaconda -c esri
+conda create --prefix=conda-env python=3.8 lxml=4.6 pycocotools=2.0.2 opencv=4.5 pyyaml=5.4 tensorflow=2.5 tensorflow-model-optimization=0.6 configparser=5.0 -c hcc
 conda activate ./conda-env/
 ```
 
