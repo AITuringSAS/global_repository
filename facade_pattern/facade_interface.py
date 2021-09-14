@@ -1,5 +1,4 @@
 """facade_interface module"""
-
 import os
 import sys
 import absl
@@ -118,15 +117,12 @@ class Inteface(object):
             pass
         logging.info("filename: ", self.paths['DATASET_FILE'])
 
-        # Download dataset from S3 (dataset must be public)
-        os.system(' '.join(['wget', self.args['URL_DATASET'], '-O', self.paths['DATASET_FILE']]))
-        # Unzip dataset
-        os.system(' '.join(['unzip', '-o', self.paths['DATASET_FILE'], '-d', self.paths['DATASET_DIR']]))
-        # Delete .zip dataset
-        os.system(' '.join(['rm', self.paths['DATASET_FILE']]))
+        # Download dataset from S3
+        self.pip_tools.download_and_uncompress_dataset(self.args['URL_DATASET'])
+
         # Download backbone checkpoints
         self.pip_tools.download_and_uncompress_backbone(self.args['BACKBONE_REF'])
-        logging.info()
+        logging.info('')
 
     def create_tfrecord(self):
         """create_tfrecord method
@@ -151,7 +147,7 @@ class Inteface(object):
         create_tfrecords.main('')
 
         logging.info("--> tfrecord files generated!")
-        logging.info()
+        logging.info('')
 
     def run_training(self):
         """run_training method
@@ -181,7 +177,7 @@ class Inteface(object):
         efficientdet_train_tf1.main('')
 
         logging.info("--> training has finished!")
-        logging.info()
+        logging.info('')
 
     def save_frozen_model(self):
         """save_frozen method
@@ -205,4 +201,4 @@ class Inteface(object):
         freeze_aituring.main('')
 
         logging.info("--> frozen model saved!")
-        logging.info()
+        logging.info('')
