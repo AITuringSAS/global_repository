@@ -3,9 +3,9 @@
 import os
 import sys
 import absl
-import subprocess
 import configparser
 import numpy as np
+import logging
 
 # Append submodule path to python search path
 sys.path.append(os.path.join(os.getcwd(), 'automl', 'efficientdet'))
@@ -116,7 +116,7 @@ class Inteface(object):
             os.mkdir(self.paths['BACKBONE_CKPT']['DIR'])
         except OSError:
             pass
-        print("filename: ", self.paths['DATASET_FILE'])
+        logging.info("filename: ", self.paths['DATASET_FILE'])
 
         # Download dataset from S3 (dataset must be public)
         os.system(' '.join(['wget', self.args['URL_DATASET'], '-O', self.paths['DATASET_FILE']]))
@@ -126,7 +126,7 @@ class Inteface(object):
         os.system(' '.join(['rm', self.paths['DATASET_FILE']]))
         # Download backbone checkpoints
         self.pip_tools.download_and_uncompress_backbone(self.args['BACKBONE_REF'])
-        print()
+        logging.info()
 
     def create_tfrecord(self):
         """create_tfrecord method
@@ -139,8 +139,8 @@ class Inteface(object):
         Returns:
             None
         """
-        print("=================================")
-        print("--> Creating TFRecord...please...wait!")
+        logging.info("=================================")
+        logging.info("--> Creating TFRecord...please...wait!")
 
         create_tfrecords.flags.FLAGS.data_dir = self.paths['DATASET_DIR']
         create_tfrecords.flags.FLAGS.output_path = self.args['output_path']
@@ -150,8 +150,8 @@ class Inteface(object):
 
         create_tfrecords.main('')
 
-        print("--> tfrecord files generated!")
-        print()
+        logging.info("--> tfrecord files generated!")
+        logging.info()
 
     def run_training(self):
         """run_training method
@@ -164,8 +164,8 @@ class Inteface(object):
         Returns:
             None
         """
-        print("=================================")
-        print("--> Starting training...please...wait!")
+        logging.info("=================================")
+        logging.info("--> Starting training...please...wait!")
 
         efficientdet_train_tf1.flags.FLAGS.mode = self.args['mode']
         efficientdet_train_tf1.flags.FLAGS.train_file_pattern = self.args['train_file_pattern']
@@ -180,8 +180,8 @@ class Inteface(object):
 
         efficientdet_train_tf1.main('')
 
-        print("--> training has finished!")
-        print()
+        logging.info("--> training has finished!")
+        logging.info()
 
     def save_frozen_model(self):
         """save_frozen method
@@ -194,8 +194,8 @@ class Inteface(object):
         Returns:
             None
         """
-        print("=================================")
-        print("--> Saving frozen model...please...wait!")
+        logging.info("=================================")
+        logging.info("--> Saving frozen model...please...wait!")
 
         freeze_aituring.flags.FLAGS.path_ckpt = os.path.join(self.paths['MODEL_OUTPUT'], self.args['MODEL_CKPTS'])
         freeze_aituring.flags.FLAGS.path_yaml = os.path.join(self.paths['TFRECORDS_DIR'], 'train_tfrecord_config.yaml')
@@ -204,5 +204,5 @@ class Inteface(object):
 
         freeze_aituring.main('')
 
-        print("--> frozen model saved!")
-        print()
+        logging.info("--> frozen model saved!")
+        logging.info()
