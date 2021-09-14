@@ -89,6 +89,9 @@ docs/_build/
 # TFRecord files
 .tfrecord
 
+# workspace
+tmp/
+
 # PyBuilder
 .pybuilder/
 target/

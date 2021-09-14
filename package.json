@@ -1,0 +1,31 @@
+{
+  "name": "aituring_pipeline_efficientdet",
+  "version": "0.0.1",
+  "description": "AITuring EfficientDet Repositorio Refactorizado",
+  "repository": {
+    "type": "git",
+    "url": "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/aituring_pipeline_efficientdet"
+  },
+  "bugs": {
+    "url": "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/aituring_pipeline_efficientdet/issues"
+  },
+  "homepage": "https://console.aws.amazon.com/codesuite/codecommit/repositories/aituring_pipeline_efficientdet/browse/refs/heads/main?region=us-east-1",
+  "main": "main.py",
+  "author": "daniel tobon <daniel.tobon@aituring.co>",
+  "license": "MIT",
+  "dependencies": {
+    "absl-py": "0.13.0",
+    "configparser": "5.0.2",
+    "lxml": "4.6.3",
+    "Pillow": "8.3.2",
+    "pycocotools": "2.0.2",
+    "opencv": "4.5.3",
+    "PyYAML": "5.4.1",
+    "tensorboard": "2.5.0",
+    "tensorboard-data-server": "0.6.0",
+    "tensorboard-plugin-wit": "1.8.0",
+    "tensorflow": "2.5.0",
+    "tensorflow-estimator": "2.5.0",
+    "tensorflow-model-optimization": "0.5.1.dev0"
+  }
+}
