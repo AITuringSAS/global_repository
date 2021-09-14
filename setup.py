@@ -8,17 +8,17 @@ setup(
     author='Daniel Tobon Collazos',                   # Type in your name
     author_email='daniel.tobon@aituring.co',      # Type in your E-Mail
     url='https://github.com/danielTobon43',   # Provide either the link to your github or to your website
-    download_url='https://github.com/user/reponame/archive/v_01.tar.gz',    # I explain this later on
+    download_url='https://git-codecommit.us-east-1.amazonaws.com/v1/repos/aituring_pipeline_efficientdet',    # I explain this later on
     keywords=['efficientdet', 'tf1', 'aituring'],   # Keywords that define your package best
     install_requires=[            # I get to this in a second
         'absl-py==0.13.0',
         'configparser==5.0.2',
         'lxml==4.6.3',
         'Pillow==8.3.2',
-        'pycocotools == 2.0.2; sys_platform=="linux"',
-        'pycocotools - windows == 2.0.0.2; sys_platform=="win32"',
-        'opencv - python == 4.5; sys_platform=="win32"',
-        'opencv == 4.5.3; sys_platform=="linux"',
+        'pycocotools==2.0.2; sys_platform=="linux"',
+        'pycocotools-windows==2.0.0.2; sys_platform=="win32"',
+        'opencv-python==4.5; sys_platform=="win32"',
+        'opencv==4.5.3; sys_platform=="linux"',
         'PyYAML==5.4.1',
         'tensorboard==2.5.0',
         'tensorboard-data-server==0.6.0',
