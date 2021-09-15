@@ -1,4 +1,3 @@
-
 from facade_pattern import facade_interface
 
 
@@ -20,7 +19,7 @@ def main():
     pipeline = facade_interface.Inteface()
 
     # 5. Create tfrecord files
-    pipeline.create_tfrecord()
+    # pipeline.create_tfrecord()
 
     # 6. Start trainning pipeline
     pipeline.run_training()

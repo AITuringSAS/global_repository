@@ -164,7 +164,7 @@ class PipelineTools(object):
                             help='Run one eval after the training finishes.', required=False)
         group4.add_argument('--min_eval_interval', metavar='seconds', type=int, default=180,
                             help='Minimum seconds between evaluations.', required=False)
-        group4.add_argument('--eval_timeout', metavar='seconds', type=int, default=None,
+        group4.add_argument('--eval_timeout', metavar='seconds', type=int, default=0,
                             help='Maximum seconds between checkpoints before evaluation terminates.', required=False)
         group4.add_argument('--run_epoch_in_child_process', metavar='number', type=bool, default=False,
                             help='This option helps to rectify CPU memory leak. If True, every epoch is run in a separate process for train and eval and memory will be cleared. Drawback: need to kill 2 processes if trainining needs to be interrupted.', required=False)

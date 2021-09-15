@@ -81,6 +81,8 @@ class Inteface(object):
     """
 
     def __init__(self):
+        logging.info("=================================")
+        logging.info("--> Setting params definitions...please...wait!")
         self.pip_tools = params_definitions.PipelineTools()
         self.paths = self.pip_tools.paths
         self.args = self.pip_tools.define_parameters()
@@ -115,13 +117,14 @@ class Inteface(object):
             os.mkdir(self.paths['BACKBONE_CKPT']['DIR'])
         except OSError:
             pass
-        logging.info("filename: ", self.paths['DATASET_FILE'])
 
-        # Download dataset from S3
-        self.pip_tools.download_and_uncompress_dataset(self.args['URL_DATASET'])
+        if self.args['mode'] == 'train' or self.args['mode'] == 'train_and_eval':
+            # Download dataset from S3
+            self.pip_tools.download_and_uncompress_dataset(self.args['URL_DATASET'])
 
-        # Download backbone checkpoints
-        self.pip_tools.download_and_uncompress_backbone(self.args['BACKBONE_REF'])
+            # Download backbone checkpoints
+            self.pip_tools.download_and_uncompress_backbone(self.args['BACKBONE_REF'])
+
         logging.info('')
 
     def create_tfrecord(self):
