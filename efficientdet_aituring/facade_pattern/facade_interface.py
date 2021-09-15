@@ -163,6 +163,10 @@ class Inteface(object):
         logging.info("=================================")
         logging.info("--> Starting training...please...wait!")
 
+        #-------------------- GCP project reference standard parameters
+        efficientdet_train_tf1.flags.FLAGS.gcp_project = self.args['gcp_project']
+
+        #-------------------- Training standard parameters
         efficientdet_train_tf1.flags.FLAGS.mode = self.args['mode']
         efficientdet_train_tf1.flags.FLAGS.train_file_pattern = self.args['train_file_pattern']
         efficientdet_train_tf1.flags.FLAGS.model_name = self.args['BACKBONE_REF']
@@ -174,6 +178,16 @@ class Inteface(object):
         efficientdet_train_tf1.flags.FLAGS.hparams = self.args['hparams']
         efficientdet_train_tf1.flags.FLAGS.num_examples_per_epoch = int(self.args['num_examples_per_epoch'])
 
+        #-------------------- TPU support
+        efficientdet_train_tf1.flags.FLAGS.tpu = self.args['tpu']
+        efficientdet_train_tf1.flags.FLAGS.tpu_zone = self.args['tpu_zone']
+        efficientdet_train_tf1.flags.FLAGS.strategy = self.args['strategy']
+        efficientdet_train_tf1.flags.FLAGS.use_xla = bool(self.args['use_xla'])
+        efficientdet_train_tf1.flags.FLAGS.num_cores = int(self.args['num_cores'])
+        efficientdet_train_tf1.flags.FLAGS.use_spatial_partition = bool(self.args['use_spatial_partition'])
+        efficientdet_train_tf1.flags.FLAGS.num_cores_per_replica = int(self.args['num_cores_per_replica'])
+
+        #-------------------- Start training
         efficientdet_train_tf1.main('')
 
         logging.info("--> training has finished!")

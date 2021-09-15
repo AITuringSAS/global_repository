@@ -83,6 +83,7 @@ class PipelineTools(object):
 
         group1 = my_params.add_argument_group("tfrecord parameters")
         group2 = my_params.add_argument_group("training parameters")
+        group3 = my_params.add_argument_group("TPU support parameters")
 
         ################################################################################
         # CONFIG FILE FLAG
@@ -124,6 +125,28 @@ class PipelineTools(object):
                             help='Comma separated k=v pairs of hyperparameters or a module. containing attributes to use as hyperparameters', required=False)
         group2.add_argument('--num_examples_per_epoch', metavar='size', type=float, default=4455,
                             help='Define the Number of examples in one epoch', required=False)
+        group2.add_argument('--ckpt', metavar='checkpoint', type=float, default=None,
+                            help='Start training from this EfficientDet checkpoint.', required=False)
+
+        #-------- TPU support
+        group3.add_argument('--tpu', metavar='TPU-name or URL', type=str, default=None,
+                            help='The Cloud TPU to use for training. This should be either the name used when creating the Cloud TPU, or a grpc://ip.address.of.tpu:8470', required=False)
+        group3.add_argument('--tpu_zone', metavar='zone', type=str, default=None,
+                            help='GCE zone where the Cloud TPU is located in. If not specified, we will attempt to automatically detect the GCE project from metadata.', required=False)
+        group3.add_argument('--strategy', metavar='tpu/gpu', type=str, default=None,
+                            help='Training: gpus for multi-gpu, if None, use TF default.', required=False)
+        group3.add_argument('--use_xla', metavar='True/False', type=bool, default=False,
+                            help='Use XLA even if strategy is not tpu. If strategy is tpu, always use XLA, and this flag has no effect.', required=False)
+        group3.add_argument('--num_cores', metavar='number of cores (default: 8)', type=int, default=8,
+                            help='Number of TPU cores for training.', required=False)
+        group3.add_argument('--use_spatial_partition', metavar='True/False', type=bool, default=False,
+                            help='Use spatial partition.', required=False)
+        group3.add_argument('--num_cores_per_replica', metavar='number', type=int, default=2,
+                            help='Number of TPU cores per replica when using spatial partition.', required=False)
+
+        #-------- GCP project reference
+        my_params.add_argument('--gcp_project', metavar='project_name', type=str, default=None,
+                               help='Project name for the Cloud TPU-enabled project. If not specified, we will attempt to automatically detect the GCE project from metadata.', required=False)
 
         ################################################################################
         # FROZEN MODEL FLAGS
