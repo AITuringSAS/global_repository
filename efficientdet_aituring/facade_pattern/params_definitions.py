@@ -84,6 +84,7 @@ class PipelineTools(object):
         group1 = my_params.add_argument_group("tfrecord parameters")
         group2 = my_params.add_argument_group("training parameters")
         group3 = my_params.add_argument_group("TPU support parameters")
+        group4 = my_params.add_argument_group("Model evaluation support parameters")
 
         ################################################################################
         # CONFIG FILE FLAG
@@ -143,10 +144,26 @@ class PipelineTools(object):
                             help='Use spatial partition.', required=False)
         group3.add_argument('--num_cores_per_replica', metavar='number', type=int, default=2,
                             help='Number of TPU cores per replica when using spatial partition.', required=False)
+        group3.add_argument('--iterations_per_loop', metavar='number', type=int, default=1000,
+                            help='Number of iterations per TPU training loop.', required=False)
 
         #-------- GCP project reference
         my_params.add_argument('--gcp_project', metavar='project_name', type=str, default=None,
                                help='Project name for the Cloud TPU-enabled project. If not specified, we will attempt to automatically detect the GCE project from metadata.', required=False)
+
+        #-------- Model evaluation
+        group4.add_argument('--eval_batch_size', metavar='size', type=int, default=1,
+                            help='global evaluation batch size.', required=False)
+        group4.add_argument('--eval_samples', metavar='samples', type=int, default=5000,
+                            help='Number of samples for eval.', required=False)
+        group4.add_argument('--eval_after_train', metavar='True/False', type=bool, default=True,
+                            help='Run one eval after the training finishes.', required=False)
+        group4.add_argument('--min_eval_interval', metavar='seconds', type=int, default=180,
+                            help='Minimum seconds between evaluations.', required=False)
+        group4.add_argument('--eval_timeout', metavar='seconds', type=int, default=None,
+                            help='Maximum seconds between checkpoints before evaluation terminates.', required=False)
+        group4.add_argument('--run_epoch_in_child_process', metavar='number', type=bool, default=False,
+                            help='This option helps to rectify CPU memory leak. If True, every epoch is run in a separate process for train and eval and memory will be cleared. Drawback: need to kill 2 processes if trainining needs to be interrupted.', required=False)
 
         ################################################################################
         # FROZEN MODEL FLAGS

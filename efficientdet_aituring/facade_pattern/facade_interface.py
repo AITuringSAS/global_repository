@@ -186,6 +186,15 @@ class Inteface(object):
         efficientdet_train_tf1.flags.FLAGS.num_cores = int(self.args['num_cores'])
         efficientdet_train_tf1.flags.FLAGS.use_spatial_partition = bool(self.args['use_spatial_partition'])
         efficientdet_train_tf1.flags.FLAGS.num_cores_per_replica = int(self.args['num_cores_per_replica'])
+        efficientdet_train_tf1.flags.FLAGS.iterations_per_loop = int(self.args['iterations_per_loop'])
+
+        #-------------------- Model evaluation support
+        efficientdet_train_tf1.flags.FLAGS.eval_batch_size = int(self.args['eval_batch_size'])
+        efficientdet_train_tf1.flags.FLAGS.eval_samples = int(self.args['eval_samples'])
+        efficientdet_train_tf1.flags.FLAGS.eval_after_train = bool(self.args['eval_after_train'])
+        efficientdet_train_tf1.flags.FLAGS.min_eval_interval = int(self.args['min_eval_interval'])
+        efficientdet_train_tf1.flags.FLAGS.eval_timeout = int(self.args['eval_timeout'])
+        efficientdet_train_tf1.flags.FLAGS.run_epoch_in_child_process = bool(self.args['run_epoch_in_child_process'])
 
         #-------------------- Start training
         efficientdet_train_tf1.main('')
