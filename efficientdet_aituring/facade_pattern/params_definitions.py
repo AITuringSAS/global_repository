@@ -108,7 +108,7 @@ class PipelineTools(object):
         ################################################################################
         # TRAINING FLAGS
         ################################################################################
-        group2.add_argument('--mode', metavar='train/eval', type=str, default='train',
+        group2.add_argument('--mode', metavar='train/eval or train_and_eval', type=str, default='train',
                             help='Mode to run: train or eval (default: train)', required=False)
         group2.add_argument('--train_file_pattern', metavar='path/to/tfrecord/folder', type=str, default=os.path.join(self.paths['TFRECORDS_DIR'], 'train_tfrecord*.tfrecord'),
                             help='Glob for training data files', required=False)
@@ -128,13 +128,15 @@ class PipelineTools(object):
                             help='Define the Number of examples in one epoch', required=False)
         group2.add_argument('--ckpt', metavar='checkpoint', type=float, default=None,
                             help='Start training from this EfficientDet checkpoint.', required=False)
+        group2.add_argument('--profile', metavar='True/False', type=bool, default=False,
+                            help='Profile training performance.', required=False)
 
         #-------- TPU support
         group3.add_argument('--tpu', metavar='TPU-name or URL', type=str, default=None,
                             help='The Cloud TPU to use for training. This should be either the name used when creating the Cloud TPU, or a grpc://ip.address.of.tpu:8470', required=False)
         group3.add_argument('--tpu_zone', metavar='zone', type=str, default=None,
                             help='GCE zone where the Cloud TPU is located in. If not specified, we will attempt to automatically detect the GCE project from metadata.', required=False)
-        group3.add_argument('--strategy', metavar='tpu/gpu', type=str, default=None,
+        group3.add_argument('--strategy', metavar='tpu/gpus', type=str, default=None,
                             help='Training: gpus for multi-gpu, if None, use TF default.', required=False)
         group3.add_argument('--use_xla', metavar='True/False', type=bool, default=False,
                             help='Use XLA even if strategy is not tpu. If strategy is tpu, always use XLA, and this flag has no effect.', required=False)
@@ -152,6 +154,8 @@ class PipelineTools(object):
                                help='Project name for the Cloud TPU-enabled project. If not specified, we will attempt to automatically detect the GCE project from metadata.', required=False)
 
         #-------- Model evaluation
+        group4.add_argument('--val_file_pattern', metavar='path/to/eval*tfrecords', type=str, default=None,
+                            help='Glob for evaluation tfrecords.', required=False)
         group4.add_argument('--eval_batch_size', metavar='size', type=int, default=1,
                             help='global evaluation batch size.', required=False)
         group4.add_argument('--eval_samples', metavar='samples', type=int, default=5000,

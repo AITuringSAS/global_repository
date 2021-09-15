@@ -177,6 +177,7 @@ class Inteface(object):
         efficientdet_train_tf1.flags.FLAGS.num_epochs = int(self.args['NUM_EPOCHS'])
         efficientdet_train_tf1.flags.FLAGS.hparams = self.args['hparams']
         efficientdet_train_tf1.flags.FLAGS.num_examples_per_epoch = int(self.args['num_examples_per_epoch'])
+        efficientdet_train_tf1.flags.FLAGS.profile = bool(self.args['profile'])
 
         #-------------------- TPU support
         efficientdet_train_tf1.flags.FLAGS.tpu = self.args['tpu']
@@ -189,6 +190,7 @@ class Inteface(object):
         efficientdet_train_tf1.flags.FLAGS.iterations_per_loop = int(self.args['iterations_per_loop'])
 
         #-------------------- Model evaluation support
+        efficientdet_train_tf1.flags.FLAGS.val_file_pattern = self.args['val_file_pattern']
         efficientdet_train_tf1.flags.FLAGS.eval_batch_size = int(self.args['eval_batch_size'])
         efficientdet_train_tf1.flags.FLAGS.eval_samples = int(self.args['eval_samples'])
         efficientdet_train_tf1.flags.FLAGS.eval_after_train = bool(self.args['eval_after_train'])
