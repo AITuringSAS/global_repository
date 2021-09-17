@@ -90,7 +90,7 @@ docs/_build/
 .tfrecord
 
 # workspace
-tmp/
+workspace/
 
 # PyBuilder
 .pybuilder/
