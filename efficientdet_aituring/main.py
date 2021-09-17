@@ -1,6 +1,5 @@
 import os
 import sys
-from os import environ
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 
 # Append submodule path to python search path
