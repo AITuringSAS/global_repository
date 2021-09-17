@@ -6,6 +6,8 @@ Este proyecto se basa en un patrón de diseño estructural Facade que permite oc
 
 Este proyecto utiliza Tensorflow 2.5 y Python 3.8.
 
+Tensorflow 2 requiere CPU con soporte AVX
+
 Pipeline:
 
 1. Conversión dataset de imágenes/labels a formato *TFRecord*
@@ -23,14 +25,17 @@ git clone --recursive https://git-codecommit.us-east-1.amazonaws.com/v1/repos/ai
 ## Requisitos
 
 ### Windows
-- Microsoft C++ Build Tools: https://visualstudio.microsoft.com/visual-cpp-build-tools
-- `C:\Users\USER-NAME\miniconda3\Scripts`
-- `C:\Users\USER-NAME\miniconda3\Library\bin`
+- Microsoft C++ Build Tools: [link here](https://visualstudio.microsoft.com/visual-cpp-build-tools)
+- wget: [link here](https://eternallybored.org/misc/wget/)
+- Agregar a las variables de entorno (opcional) (si se usa miniconda3):
+	- `C:\Users\USER-NAME\miniconda3\Scripts`
+	- `C:\Users\USER-NAME\miniconda3\Library\bin`
+
+**Note:**
+Se debe agregar el path del folder en donde está *wget* a las variables de entorno de windows
 
 
 ### Linux
-
-### MacOX
 
 ## Instalación
 ```
@@ -39,8 +44,6 @@ conda config --set env_prompt '({name})
 ```
 
 ### Instalación con conda
-- Linux
-
 ```
 conda create --prefix=conda-env python=3.8.10
 conda activate conda-env/
@@ -53,8 +56,6 @@ conda install pyyaml=5.4 -c conda-forge
 conda install configparser=5.0 -c conda-forge
 ```
 
-- Windows
-
 ### Instalación con PIP
 ```
 conda create --prefix=conda-env python=3.8
@@ -62,7 +63,7 @@ pip install -r requirements.txt
 ```
 
 
-## Pipeline
+## Test
 ```
 Training with command line parameters
 -------
