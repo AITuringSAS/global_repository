@@ -15,9 +15,12 @@ Pipeline:
 3. Conversión modelo entrenado a FrozenModel
 
 **Nota:**
-Se recomienda el uso de entorno virtual conda/venv para el manejo e instalación de paquetes
+Se recomienda el uso de entorno virtual conda/venv para el manejo de la instalación de paquetes
+
+<img src="./uml/EfficientDetUML.png"/>
 
 ## Getting started
+Se debe clonar el repositorio de manera **recursiva** para descargar los archivos correspondientes al submodulo [efficientdet-google-fork-version](https://git-codecommit.us-east-1.amazonaws.com/v1/repos/automl)
 ```
 git clone --recursive https://git-codecommit.us-east-1.amazonaws.com/v1/repos/aituring_pipeline_efficientdet
 ```
@@ -36,8 +39,12 @@ Se debe agregar el path del folder en donde está *wget* a las variables de ento
 
 
 ### Linux
+- gcc >= 9.3.0
+
 
 ## Instalación
+Se recomienda el uso de un entorno aislado para la instalación de paquetes. Para este repositorio se utilizó [miniconda](https://docs.conda.io/en/latest/miniconda.html)
+
 ```
 conda config --set auto_activate_base false
 conda config --set env_prompt '({name})
@@ -61,9 +68,24 @@ conda install configparser=5.0 -c conda-forge
 conda create --prefix=conda-env python=3.8
 pip install -r requirements.txt
 ```
+**Nota:**
+Conda también permite la carga de paquetes desde un archivo de requerimientos utilizando el comando:<br>
+
+`conda install --file requirements.txt`
+
+## Parametros
+List de parametros por defecto
+```
+python3 main.py [-h/--help]
+```
+Lista completa de parametros
+```
+python3 main.py [--helpfull]
+```
 
 
 ## Test
+
 ```
 Training with command line parameters
 -------
@@ -109,6 +131,9 @@ python3 automl/efficientdet/main.py --mode=train \
 --hparams=$temp_dir_tfrecords/train_tfrecord_config.yaml \
 --num_examples_per_epoch=4455
 ```
+
+## Eval
+cooming soon...
 
 ## Frozen model
 ```
