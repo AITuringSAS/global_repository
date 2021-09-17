@@ -1,8 +1,19 @@
-# Global Repository 
-Repositorio global del equipo AITeam para el trabajo y desarrollo de una CNN basada en el modelo del EfficientDet de Google: [efficientdet-google](https://github.com/google/automl)
+# Efficientdet Repositorio Refactorizado
+Repositorio refactorizado del AITeam para el trabajo y desarrollo de una CNN basada en el modelo del EfficientDet de Google: [efficientdet-google](https://github.com/google/automl)
 
 ## Descripción
-Este proyecto utiliza Tensorflow 2.5 y Python 3.8
+Este proyecto se basa en un patrón de diseño estructural Facade que permite ocultar la complejidad interna del proyecto [efficientdet-google](https://github.com/google/automl) y expone una interfaz simplificada de uso para el pipeline de entrenamiento, evaluación y manejo de datasets.
+
+Este proyecto utiliza Tensorflow 2.5 y Python 3.8.
+
+Pipeline:
+
+1. Conversión dataset de imágenes/labels a formato *TFRecord*
+2. Entrenamiento 
+3. Conversión modelo entrenado a FrozenModel
+
+**Nota:**
+Se recomienda el uso de entorno virtual conda/venv para el manejo e instalación de paquetes
 
 ## Getting started
 ```
@@ -59,7 +70,7 @@ python3 main.py --URL_DATASET https://datasets-aiteam.s3.amazonaws.com/DATASET-5
 --BATCH_SIZE 1 \
 --BACKBONE_REF efficientdet-d0 \
 --NUM_EPOCHS 5 \
---MODEL_CKPTS efficientdet-d0-Output-folder
+--MODEL_CKPTS efficientdet-d0-output-folder
 
 
 Training with environment variables    
@@ -74,7 +85,7 @@ python3 main.py
 
 Training with configuration file    
 -------
-python3 main.py --configfile params.config
+python3 main.py @params.config
 ```
 
 ## TFRecords
