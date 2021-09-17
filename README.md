@@ -17,7 +17,7 @@ Pipeline:
 **Nota:**
 Se recomienda el uso de entorno virtual conda/venv para el manejo de la instalación de paquetes
 
-<img src="./uml/EfficientDetUML.png"/>
+<img src="./uml/uml.png"/>
 
 ## Getting started
 Se debe clonar el repositorio de manera **recursiva** para descargar los archivos correspondientes al submodulo [efficientdet-google-fork-version](https://git-codecommit.us-east-1.amazonaws.com/v1/repos/automl)
