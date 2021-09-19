@@ -89,13 +89,13 @@ class Inteface(object):
         logging.info("=================================")
         logging.info("--> Creating TFRecord...please...wait!")
 
-        COMMAND = """python3 {} \
+        COMMAND = """{} {} \
         --data_dir={} \
         --output_path={} \
         --num_shards={} \
         --use_data_augmentation={} \
         --perc_split_training={} \
-        """.format(self.files['TFRECORD_SCRIPT'], self.args_tfr.data_dir, self.args_tfr.output_path, self.args_tfr.num_shards, self.args_tfr.use_data_augmentation, self.args_tfr.perc_split_training)
+        """.format(sys.executable, self.files['TFRECORD_SCRIPT'], self.args_tfr.data_dir, self.args_tfr.output_path, self.args_tfr.num_shards, self.args_tfr.use_data_augmentation, self.args_tfr.perc_split_training)
 
         #-------------------- Start TFrecord conversion
         os.system(COMMAND)
@@ -122,7 +122,7 @@ class Inteface(object):
         # eval_time_out
         # gpc_project
 
-        COMMAND = """python3 {} \
+        COMMAND = """{} {} \
         --mode={} \
         --train_file_pattern={} \
         --model_dir={} \
@@ -145,7 +145,7 @@ class Inteface(object):
         --eval_after_train={} \
         --min_eval_interval={} \
         --run_epoch_in_child_process={}
-        """.format(self.files['EFFICIENTDET_MAIN_SCRIPT'],
+        """.format(sys.executable, self.files['EFFICIENTDET_MAIN_SCRIPT'],
                    #-------------------- Training standard parameters
                    self.args_efd.mode, self.args_efd.train_file_pattern,
                    self.args_efd.model_dir, self.args_efd.backbone_ckpt, self.args_efd.train_batch_size, self.args_efd.num_epochs,
@@ -177,12 +177,12 @@ class Inteface(object):
         logging.info("=================================")
         logging.info("--> Saving frozen model...please...wait!")
 
-        COMMAND = """python3 {} \
+        COMMAND = """{} {} \
         --path_ckpt={} \
         --path_yaml={} \
         --path_output={} \
         --model_name_={}
-        """.format(self.files['FREEZE_MAIN_SCRIPT'],
+        """.format(sys.executable, self.files['FREEZE_MAIN_SCRIPT'],
                    self.args_fre.path_ckpt,
                    self.args_fre.path_yaml,
                    self.args_fre.path_output,
