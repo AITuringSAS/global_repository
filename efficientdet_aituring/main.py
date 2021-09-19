@@ -123,37 +123,30 @@ def main():
 
     flags_freeze.path_yaml = files['HPARAMS_YAML']
 
-    if len(sys.argv) < 2:
+    if len(sys.argv) < 2 and not (os.environ['URL_DATASET'] or os.environ['BACKBONE_REF'] or os.environ['NUM_EPOCHS'] or os.environ['BATCH_SIZE'] or os.environ['MODEL_CKPTS']):
         parser.print_usage()
         sys.exit(1)
+        
 
     # Setting args by command line
     # Default args will be overridden if provided by command line
     args = parser.parse_args()
-
-    flags_efficientdet.model_name = args.BACKBONE_REF
-    flags_efficientdet.backbone_ckpt = os.path.join(paths['BACKBONE_CKPT_DIR'], args.BACKBONE_REF)
-
-    path_ckpt = os.listdir(paths['MODEL_OUTPUT_DIR'])
-    flags_freeze.path_ckpt = os.path.join(paths['MODEL_OUTPUT_DIR'], path_ckpt[0])
-    flags_freeze.model_name_ = args.BACKBONE_REF
-    if not flags_freeze.path_output:
-        flags_freeze.path_output = os.path.join(paths['FROZEN_MODEL_DIR'], path_ckpt[0] + '_freeze')
-
+    
     # catch environment parameters if not detected by command line or config.file
     if not args.URL_DATASET:
         args.URL_DATASET = os.environ['URL_DATASET']
     if not args.BACKBONE_REF:
         args.BACKBONE_REF = os.environ['BACKBONE_REF']
     if not args.NUM_EPOCHS:
-        args.NUM_EPOCHS = os.environ['NUM_EPOCHS']
+        args.NUM_EPOCHS = int(os.environ['NUM_EPOCHS'])
     if not args.BATCH_SIZE:
-        args.BATCH_SIZE = os.environ['BATCH_SIZE']
+        args.BATCH_SIZE = int(os.environ['BATCH_SIZE'])
     if not args.MODEL_CKPTS:
         if "MODEL_CKPTS" in os.environ:
             args.MODEL_CKPTS = os.environ['MODEL_CKPTS']
         else:
             args.MODEL_CKPTS = paths['MODEL_OUTPUT_DIR']
+
 
     try:
         os.mkdir(paths['WORKSPACE'])
@@ -162,8 +155,25 @@ def main():
         os.mkdir(paths['FROZEN_MODEL_DIR'])
         os.mkdir(paths['TFRECORD_DIR'])
         os.mkdir(paths['BACKBONE_CKPT_DIR'])
+        os.mkdir(args.MODEL_CKPTS)
     except OSError:
         pass
+
+    flags_efficientdet.model_name = args.BACKBONE_REF
+    flags_efficientdet.backbone_ckpt = os.path.join(paths['BACKBONE_CKPT_DIR'], args.BACKBONE_REF)
+    flags_efficientdet.num_epochs = args.NUM_EPOCHS
+    flags_efficientdet.train_batch_size = args.BATCH_SIZE
+
+
+    path_ckpt = os.path.basename(os.path.normpath(args.MODEL_CKPTS))
+
+    # path_ckpt = os.listdir(paths['MODEL_OUTPUT_DIR'])
+    # flags_freeze.path_ckpt = os.path.join(paths['MODEL_OUTPUT_DIR'], path_ckpt[0])
+    flags_freeze.path_ckpt = os.path.join(paths['MODEL_OUTPUT_DIR'], path_ckpt)
+    flags_freeze.model_name_ = args.BACKBONE_REF
+    if not flags_freeze.path_output:
+        flags_freeze.path_output = os.path.join(paths['FROZEN_MODEL_DIR'], path_ckpt + '_freeze')
+ 
 
     # Download dataset from S3
     download_and_uncompress_dataset(args.URL_DATASET, paths['DATASET_DIR'], files['DATASET_FILE'])
