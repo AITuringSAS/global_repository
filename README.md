@@ -18,7 +18,7 @@ Pipeline:
 Se recomienda el uso de entorno virtual conda/venv para el manejo de la instalación de paquetes
 
 <img src="./uml/uml.png"/>
-[![uml](https://console.aws.amazon.com/codesuite/codecommit/repositories/aituring_pipeline_efficientdet/browse/refs/heads/main/--/uml/uml.png?region=us-east-1)
+
 
 # TODO
 - Revisar el metodo de creación de tfrecord para train y val por separado
@@ -28,7 +28,7 @@ Se recomienda el uso de entorno virtual conda/venv para el manejo de la instalac
 - Revisar parametros que no son seteables por line de commando: `gcp_project`, `eval_timeout`, `strategy`
 - Revisar el tamaño generado por cada TFRecord, se recomienda minimo 10MB por tfrecord
 - Revisar el manejo de variables de entorno
-- Remover workspace despues en cada sesion
+- Remover workspace despues de cada sesion
 
 # Repositorio Estado Actual
 - Actualmente, este repositorio permite la ejecución de un entrenamiento forajido sin tfrecords de evaluación. Se puede evaluar el modelo seleccionando el modo `train_and_eval` o con el parametro `eval_after_train`, pero al no tener tfrecord de validación intregado en el pipeline, no se puede garantizar la veracidad del mismo. 
@@ -44,12 +44,14 @@ git clone --recursive https://git-codecommit.us-east-1.amazonaws.com/v1/repos/ai
 ### Windows
 - Microsoft C++ Build Tools: [link here](https://visualstudio.microsoft.com/visual-cpp-build-tools)
 - wget: [link here](https://eternallybored.org/misc/wget/)
+- tee: [link here](https://www.pconlife.com/viewfileinfo/tee-exe/)
 - Agregar a las variables de entorno (opcional) (si se usa miniconda3):
+
 	- `C:\Users\USER-NAME\miniconda3\Scripts`
 	- `C:\Users\USER-NAME\miniconda3\Library\bin`
 
 **Note:**
-Se debe agregar el path del folder en donde está *wget* a las variables de entorno de windows
+Se debe agregar el path del folder en donde está *wget* y *tee* a las variables de entorno de windows
 
 
 ### Linux
@@ -83,12 +85,13 @@ conda create --prefix=conda-env python=3.8
 pip install -r requirements.txt
 ```
 **Nota:**
-Conda también permite la carga de paquetes desde un archivo de requerimientos utilizando el comando:<br>
+Conda también permite la carga de paquetes desde un archivo de requerimientos utilizando el comando:
 
 `conda install --file requirements.txt`
 
 ## Parametros
 Este repositorio admite parametros de 3 maneras:
+
 1. parametros por linea de comando:
 ```
 python3 main.py 
@@ -107,11 +110,8 @@ python3 main.py
 **Nota:**
 Para una lista completa de argumentos por linea de comando
 ```
-python3 main.py [-h/--help]
-```
-Lista completa de parametros
-```
-python3 main.py [--helpfull]
+python3 main.py [-h/--help]    version corta
+python3 main.py [--helpfull]   version completa
 ```
 2. parametros por archivo de configuración:
 
