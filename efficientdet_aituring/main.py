@@ -174,7 +174,6 @@ def main():
             args.MODEL_CKPTS = os.getenv('MODEL_CKPTS')
         else:
             args.MODEL_CKPTS = paths['MODEL_OUTPUT_DIR']
-            sys.exit(1)
     if not args.NUM_EXAMPLES_PER_EPOCH:
         if "NUM_EXAMPLES_PER_EPOCH" in os.environ:
             args.NUM_EXAMPLES_PER_EPOCH = int(os.getenv('NUM_EXAMPLES_PER_EPOCH'))
@@ -194,10 +193,12 @@ def main():
         os.mkdir(args.MODEL_CKPTS)
     except OSError:
         pass
+    print(args.MODEL_CKPTS,  " YEAHHH")
 
     # Update flags provided by command line
     flags_efficientdet.model_name = args.BACKBONE_REF
     flags_efficientdet.backbone_ckpt = os.path.join(paths['BACKBONE_CKPT_DIR'], args.BACKBONE_REF)
+    flags_efficientdet.model_dir = args.MODEL_CKPTS
     flags_efficientdet.num_epochs = args.NUM_EPOCHS
     flags_efficientdet.train_batch_size = args.TRAIN_BATCH_SIZE
     flags_efficientdet.eval_batch_size = args.EVAL_BATCH_SIZE
@@ -206,7 +207,7 @@ def main():
     # Get folder name for results
     path_ckpt = os.path.basename(os.path.normpath(args.MODEL_CKPTS))
 
-    # Set output dir
+    # Set output dir for frozen model
     flags_freeze.path_ckpt = os.path.join(paths['MODEL_OUTPUT_DIR'], path_ckpt)
     flags_freeze.model_name_ = args.BACKBONE_REF
     if not flags_freeze.path_output:
