@@ -28,6 +28,7 @@ Se recomienda el uso de entorno virtual conda/venv para el manejo de la instalac
 - Revisar parametros que no son seteables por line de commando: `gcp_project`, `eval_timeout`, `strategy`
 - Revisar el tamaño generado por cada TFRecord, se recomienda minimo 10MB por tfrecord
 - Revisar el manejo de variables de entorno
+- Remover workspace despues en cada sesion
 
 # Repositorio Estado Actual
 - Actualmente, este repositorio permite la ejecución de un entrenamiento forajido sin tfrecords de evaluación. Se puede evaluar el modelo seleccionando el modo `train_and_eval` o con el parametro `eval_after_train`, pero al no tener tfrecord de validación intregado en el pipeline, no se puede garantizar la veracidad del mismo. 
