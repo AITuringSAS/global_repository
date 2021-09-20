@@ -19,6 +19,18 @@ Se recomienda el uso de entorno virtual conda/venv para el manejo de la instalac
 
 <img src="./uml/uml.png"/>
 
+# PIP package
+Para compilar el paquete pip se puede ejecutar el siguiente comando:
+
+`python setup.py sdist`
+
+El comando anterior va a crear un folder `dist` con un archivo `.tar.gz` que puede ser instalado con el comando:
+
+```
+pip install archivo.tar.gz
+e.g.
+pip install efficientdet_aituring-0.0.1.tar
+```
 
 # TODO
 - Revisar el metodo de creación de tfrecord para train y val por separado

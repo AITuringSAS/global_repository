@@ -22,6 +22,7 @@ setup(
         'tensorflow==2.5.0',
         'tensorflow-estimator==2.5.0',
         'tensorflow-model-optimization==0.5.1.dev0'
-        'wget==3.2; sys_platform=="win32"'
+        'wget==3.2; sys_platform=="win32"',
+        'tensorflow-addons'
     ]
 )
