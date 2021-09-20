@@ -150,11 +150,11 @@ Se debe setear variables de entorno con los argumentos mostrados en el punto 2.
 ## API
 La definición de cada función se encuentra en el siguiente API:
 
-- [main](http://htmlpreview.github.io/?https://github.com/danielTobon43/AITuringSAS/global_repository/efficientdet_aituring/api/main_principal.html)
-- [main_automl_efficientdet](./efficientdet_aituring/api/main_automl_efficientdet.html)
-- [command_interface](./efficientdet_aituring/api/command_interface.html)
-- [create_tfrecords](./efficientdet_aituring/api/create_tfrecords.html)
-- [freeze_model](./efficientdet_aituring/api/freeze_model.html)
+- [main](https://github.com/AITuringSAS/global_repository/blob/main/efficientdet_aituring/api/main_principal.html)
+- [main_automl_efficientdet]https://github.com/AITuringSAS/global_repository/blob/main/efficientdet_aituring/api/main_automl_efficientdet.html)
+- [command_interface](https://github.com/AITuringSAS/global_repository/blob/main/efficientdet_aituring/api/command_interface.html)
+- [create_tfrecords](https://github.com/AITuringSAS/global_repository/blob/main/efficientdet_aituring/api/create_tfrecords.html)
+- [freeze_model](https://github.com/AITuringSAS/global_repository/blob/main/efficientdet_aituring/api/freeze_model.html)
 
 ## Test
 Los siguientes ejemplos muestran las 3 formas de ejecutar el pipeline.
