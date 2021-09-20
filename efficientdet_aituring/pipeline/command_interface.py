@@ -94,7 +94,7 @@ class Inteface(object):
         --output_path={} \
         --num_shards={} \
         --use_data_augmentation={} \
-        --perc_split_training={} \
+        --perc_split_training={} | tee tfrecord_log.txt
         """.format(sys.executable, self.files['TFRECORD_SCRIPT'], self.args_tfr.data_dir, self.args_tfr.output_path, self.args_tfr.num_shards, self.args_tfr.use_data_augmentation, self.args_tfr.perc_split_training)
 
         #-------------------- Start TFrecord conversion
@@ -144,7 +144,7 @@ class Inteface(object):
         --eval_samples={} \
         --eval_after_train={} \
         --min_eval_interval={} \
-        --run_epoch_in_child_process={}
+        --run_epoch_in_child_process={} | tee training_log.txt
         """.format(sys.executable, self.files['EFFICIENTDET_MAIN_SCRIPT'],
                    #-------------------- Training standard parameters
                    self.args_efd.mode, self.args_efd.train_file_pattern,
@@ -181,7 +181,7 @@ class Inteface(object):
         --path_ckpt={} \
         --path_yaml={} \
         --path_output={} \
-        --model_name_={}
+        --model_name_={} | tee freeze_log.txt
         """.format(sys.executable, self.files['FREEZE_MAIN_SCRIPT'],
                    self.args_fre.path_ckpt,
                    self.args_fre.path_yaml,
