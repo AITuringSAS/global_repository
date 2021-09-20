@@ -150,7 +150,7 @@ Se debe setear variables de entorno con los argumentos mostrados en el punto 2.
 ## API
 La definición de cada función se encuentra en el siguiente API:
 
-- [main](./efficientdet_aituring/api/main_principal.html)
+- [main](http://htmlpreview.github.io/?https://github.com/danielTobon43/AITuringSAS/global_repository/efficientdet_aituring/api/main_principal.html)
 - [main_automl_efficientdet](./efficientdet_aituring/api/main_automl_efficientdet.html)
 - [command_interface](./efficientdet_aituring/api/command_interface.html)
 - [create_tfrecords](./efficientdet_aituring/api/create_tfrecords.html)
